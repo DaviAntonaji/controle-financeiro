@@ -12,8 +12,3 @@
 - ```DATABASE```: A pasta DATABASE possui o banco de dados MySQL
 - ```WEB```: A pasta WEB possui o front-end
 ------------
-
-##### Comentários
-
-- ###### As variáveis de ambiente estão definidas no arquivo .env, caso esteja usando um banco de dados diferente, alterar no arquivo
-
