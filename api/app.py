@@ -69,18 +69,18 @@ api.add_resource(AtualizaDespesa, "/despesas/atualizar/<string:despesa_id>")
 docs.register(AtualizaDespesa)
 api.add_resource(CategoriasDespesas, "/despesas/categorias")
 docs.register(CategoriasDespesas)
-api.add_resource(DeletaDespesa, "/despesa/apagar/<string:despesa_id>")
+api.add_resource(DeletaDespesa, "/despesa/apagar/<string:despesa_id>/<string:user_id>")
 docs.register(DeletaDespesa)
 
 
 # Rotas de recebimentos
 api.add_resource(AtualizaRecebimento, "/recebimento/atualizar/<string:recebimento_id>")
 docs.register(AtualizaRecebimento)
-api.add_resource(Recebimentos, "/recebimentos/<string:user_id>/<string:mes>/<string:ano>")
+api.add_resource(Recebimentos, "/recebimentos/<string:user_id>/<string:mes>/<string:ano>/<string:user_id>")
 docs.register(Recebimentos)
 api.add_resource(CadastraRecebimento, "/recebimentos/cadastrar")
 docs.register(CadastraRecebimento)
-api.add_resource(DeletaRecebimento, "/recebimentos/apagar/<string:recebimento_id>")
+api.add_resource(DeletaRecebimento, "/recebimentos/apagar/<string:recebimento_id>/<string:user_id>")
 docs.register(DeletaRecebimento)
 
 # Main Function

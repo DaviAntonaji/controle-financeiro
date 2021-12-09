@@ -23,6 +23,9 @@ class CadastraDespesa(MethodResource, Resource):
     @use_kwargs(DespesaRegisterSchema, location=('json'))
     @jwt_required
     def post(self, **kargs):
+        user_id = kargs.get("user_id")
+        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user_id"]:
+            return {"message": "Usuários divergentes"},400
         cadastro = DespesaModel.cadastraDespesa(**kargs)
 
         if cadastro["message"] == "OK":
@@ -47,6 +50,9 @@ class AtualizaDespesa(MethodResource, Resource):
     @use_kwargs(DespesaRegisterSchema, location=('json'))
     @jwt_required
     def put(self, despesa_id, **kargs):
+        user_id = kargs.get("user_id")
+        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user_id"]:
+            return {"message": "Usuários divergentes"},400
         cadastro = DespesaModel.atualizaDespesa(despesa_id=despesa_id,**kargs)
 
         if cadastro["message"] == "OK":
@@ -73,6 +79,8 @@ class Despesas(MethodResource, Resource):
     })
     @jwt_required
     def get(self, user_id, mes, ano):
+        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user_id"]:
+            return {"message": "Usuários divergentes"},400
 
         despesas = DespesaModel.consultaDespesasMes(user_id, mes, ano)
 
@@ -100,7 +108,11 @@ class DeletaDespesa(MethodResource, Resource):
         }
     })
     @jwt_required
-    def delete(self, despesa_id):
+    def delete(self, user_id, despesa_id):
+
+
+        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user_id"]:
+            return {"message": "Usuários divergentes"},400
 
         despesas = DespesaModel.deletaDespesa(despesa_id)
 
