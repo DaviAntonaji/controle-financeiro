@@ -17,5 +17,6 @@ python3 app.py
 
 ##### Comentários
 
+- ###### Também há a possibilidade de iniciar usando o docker, siga o exemplo no arquivo ```startWithDocker.sh```
 - ###### As variáveis de ambiente estão definidas no arquivo .env, caso esteja usando um banco de dados diferente, alterar no arquivo
 
