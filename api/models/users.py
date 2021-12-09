@@ -20,6 +20,30 @@ class UserModel(object):
         }
 
 
+    @staticmethod
+    def register(name,login,password):
+        conexao = connectionDb.connect()
+        cursor = conexao.cursor()
+        
+        try:
+            
+            cursor.execute( "SELECT * FROM usuarios WHERE user_login = %s", (login))
+            exist = cursor.fetchone()
+            if exist:
+                return {"message": "Login já cadastrado", "status_code": 400}
+            else:
+                cursor.execute("INSERT INTO usuarios VALUES (NULL,%s,%s, md5(%s), 1)", (name, login, password))
+
+                conexao.commit()
+                return {"message": "OK"}
+        except Exception as e:
+            
+            return {"message": "Requisição incorreta", "status_code": 400, "error": str(e)}
+
+        finally:
+            cursor.close()
+            conexao.close()
+            
     
     @staticmethod
     def auth(login,password):

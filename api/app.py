@@ -7,7 +7,8 @@ from flask_jwt_extended import JWTManager
 
 from resources.start import Start
 from resources.despesas import AtualizaDespesa, Despesas, CategoriasDespesas, CadastraDespesa, DeletaDespesa
-from resources.users import UserAuth
+from resources.recebimentos import AtualizaRecebimento, Recebimentos, CadastraRecebimento, DeletaRecebimento
+from resources.users import UserAuth, UserRegister
 
 import os
 from dotenv import load_dotenv
@@ -52,10 +53,13 @@ def token_de_acesso_invalidado():
 
 api.add_resource(Start, "/")
 docs.register(Start)
-
+# Rotas de usuário
 api.add_resource(UserAuth, "/user/auth")
 docs.register(UserAuth)
+api.add_resource(UserRegister, "/user/cadastrar")
+docs.register(UserRegister)
 
+# Rotas de despesas
 api.add_resource(
     Despesas, "/despesas/<string:user_id>/<string:mes>/<string:ano>")
 docs.register(Despesas)
@@ -67,6 +71,17 @@ api.add_resource(CategoriasDespesas, "/despesas/categorias")
 docs.register(CategoriasDespesas)
 api.add_resource(DeletaDespesa, "/despesa/apagar/<string:despesa_id>")
 docs.register(DeletaDespesa)
+
+
+# Rotas de recebimentos
+api.add_resource(AtualizaRecebimento, "/recebimento/atualizar/<string:recebimento_id>")
+docs.register(AtualizaRecebimento)
+api.add_resource(Recebimentos, "/recebimentos/<string:user_id>/<string:mes>/<string:ano>")
+docs.register(Recebimentos)
+api.add_resource(CadastraRecebimento, "/recebimentos/cadastrar")
+docs.register(CadastraRecebimento)
+api.add_resource(DeletaRecebimento, "/recebimentos/apagar/<string:recebimento_id>")
+docs.register(DeletaRecebimento)
 
 # Main Function
 if __name__ == '__main__':

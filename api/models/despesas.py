@@ -79,6 +79,8 @@ class DespesaModel(object):
 
     def consultaDespesasMes(user_id, mes, ano):
         num_days = monthrange(int(ano), int(mes))[1]
+        if int(mes) < 10:
+            mes = str(mes).zfill(1)
         conexao = connectionDb.connect()
         cursor = conexao.cursor()
         try:
