@@ -112,7 +112,8 @@ class DeletaRecebimento(MethodResource, Resource):
     })
     @jwt_required
     def delete(self, user_id, recebimento_id):
-
+        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user_id"]:
+            return {"message": "Usuários divergentes"},400
         recebimentos = RecebimentoModel.deletaRecebimento(recebimento_id)
 
         if recebimentos:

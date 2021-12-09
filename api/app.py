@@ -76,7 +76,7 @@ docs.register(DeletaDespesa)
 # Rotas de recebimentos
 api.add_resource(AtualizaRecebimento, "/recebimento/atualizar/<string:recebimento_id>")
 docs.register(AtualizaRecebimento)
-api.add_resource(Recebimentos, "/recebimentos/<string:user_id>/<string:mes>/<string:ano>/<string:user_id>")
+api.add_resource(Recebimentos, "/recebimentos/<string:user_id>/<string:mes>/<string:ano>")
 docs.register(Recebimentos)
 api.add_resource(CadastraRecebimento, "/recebimentos/cadastrar")
 docs.register(CadastraRecebimento)
