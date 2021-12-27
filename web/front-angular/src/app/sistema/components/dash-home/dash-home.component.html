@@ -1,0 +1,90 @@
+<div class="container class-padding" style="margin: 10px;">
+
+
+  <div style="margin-bottom:30px;">
+    <mat-card style=" padding:15px;">
+      <p style="font-size: 18px; font-weight: 100">Olá <strong>{{nomeCurto}}</strong>,
+        você está navegando em seu painel administrativo</p>
+    </mat-card>
+  </div>
+
+  <div style="padding:10px">
+    <h1 style="text-align: center">Acesso Rápido </h1>
+
+  </div>
+
+
+
+  <mat-card>
+
+    <h3 style="text-align: center">Relatório do mês de {{mes}} de {{ano}}</h3>
+
+    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+      <div fxFill fxFlex.md="30" fxFlex.lg="30" fxFlex.xl="30">
+        <mat-card style="width: 98%; border: 1px solid #33b73e; margin: 5px;" class="mat-elevation-z0">
+          <mat-card-header class="card3">
+
+            <mat-card-title> Valor que já foi recebido</mat-card-title>
+
+          </mat-card-header>
+          <mat-card-content>
+            <h1 style="text-align:center;">{{totalRecebido}}</h1>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div fxFill fxFlex.md="30" fxFlex.lg="30" fxFlex.xl="30">
+        <mat-card style="width: 98%; border: 1px solid #b73333; margin: 5px" class="mat-elevation-z0">
+          <mat-card-header class="card2">
+
+            <mat-card-title> Valor gasto em Despesas </mat-card-title>
+
+          </mat-card-header>
+          <mat-card-content>
+            <h1 style="text-align:center;">{{totalDespesas}}</h1>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div fxFill fxFlex.md="30" fxFlex.lg="30" fxFlex.xl="30">
+        <mat-card style="width: 98%; border: 1px solid #00a4fb; margin: 5px" class="mat-elevation-z0">
+          <mat-card-header class="card1">
+
+            <mat-card-title> Valor restante (lucro) </mat-card-title>
+
+          </mat-card-header>
+          <mat-card-content>
+            <h1 style="text-align:center;">{{lucro}}</h1>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="data != []">
+      <div fxFlex="90" style="text-align:center;">
+        <div (window:resize)="resetWindowSize($event)">
+          <h2 style="text-align:center;">Com o que mais foi gasto?</h2>
+          
+          <google-chart [type]="type" [data]="data" [columns]="columnNames" [options]="options"></google-chart>
+        </div>
+      </div>
+    </div>
+
+
+
+  </mat-card>
+
+</div>
+
+
+<div id="fab-dismiss" *ngIf="fabTogglerState==='active'" (click)="onToggleFab()">
+</div>
+
+<div class="fab-container">
+  <button mat-fab class="fab-toggler" color="primary" (click)="onToggleFab()">
+    <i class="material-icons" [@fabToggler]="{value: fabTogglerState}">add</i>
+  </button>
+  <div [@speedDialStagger]="buttons.length" *ngIf="data != []">
+    <button *ngFor="let btn of buttons" mat-mini-fab (click)="acao(btn.action)" class="fab-secondary" color="secondary">
+      <i class="material-icons">{{btn.icon}}</i>
+    </button>
+  </div>
+</div>

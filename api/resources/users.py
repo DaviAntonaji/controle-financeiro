@@ -23,9 +23,9 @@ class UserRegister(MethodResource,Resource):
         if user:
             if user["message"] == "OK":
                 
-                token_de_acesso = managertk.createToken(json.dumps(user))
+                
 
-                user.update({"token": token_de_acesso})
+
                 return user, 200
             else:
                 return user, user["status_code"]
@@ -47,7 +47,11 @@ class UserAuth(MethodResource,Resource):
         if user:
             if user["message"] == "OK":
                 
-                token_de_acesso = managertk.createToken(json.dumps(user))
+                token = {
+                    "user": {
+                        "user_id":user["user"]["user_id"]}
+                }
+                token_de_acesso = managertk.createToken(json.dumps(token))
 
                 user.update({"token": token_de_acesso})
                 return user, 200

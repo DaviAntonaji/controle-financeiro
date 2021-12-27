@@ -1,0 +1,125 @@
+<div style="padding:2%;">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Mensal">
+
+
+      <!-- MENSAL -->
+
+      <!-- FORMULARIO PESQUISA -->
+
+
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-start center" fxLayout.xs="column">
+
+        <form [formGroup]="formBuscaMensal" style="text-align:center;">
+          <div>
+
+            <mat-form-field class="example-full-width" appearance="outline" style="margin-right:12px">
+              <mat-label>Mês</mat-label>
+
+
+              <mat-select formControlName="mes" required [(value)]="mesAtual">
+                <mat-option *ngFor="let mes of meses" [value]="mes.numero">
+                  {{mes.nome}}
+                </mat-option>
+              </mat-select>
+
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="outline" style="margin-right:12px">
+              <mat-label>Ano</mat-label>
+              <mat-select formControlName="ano" required [(value)]="anoAtual">
+                <mat-option *ngFor="let ano of anosPossiveis" [value]="ano">
+                  {{ano}}
+                </mat-option>
+              </mat-select>
+
+
+
+
+            </mat-form-field>
+
+
+
+          </div>
+        </form>
+
+
+        <div>
+
+          <button mat-raised-button class="top" style="margin-right:12px" (click)="consultaMensal()" color="primary">
+            <mat-icon>search</mat-icon>
+            Buscar
+          </button>
+
+        </div>
+
+
+
+      </div>
+
+
+      <div *ngIf="mensal">
+
+        <app-relatorios-mensal [mes]="mes" [ano]="ano"></app-relatorios-mensal>
+      </div>
+
+      <!-- FIM FORMULARIO PESQUISA -->
+
+      <!-- FIM MENSAL -->
+
+
+
+    </mat-tab>
+    <mat-tab label="Anual">
+
+
+      <!-- ANUAL -->
+      <!-- FORMULARIO PESQUISA -->
+
+
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-start center" fxLayout.xs="column">
+
+        <form [formGroup]="formBuscaAnual" style="text-align:center;">
+          <div>
+
+
+            <mat-form-field class="example-full-width" appearance="outline" style="margin-right:12px">
+              <mat-label>Ano</mat-label>
+              <mat-select formControlName="ano" required [(value)]="anoAtual">
+                <mat-option *ngFor="let ano of anosPossiveis" [value]="ano">
+                  {{ano}}
+                </mat-option>
+              </mat-select>
+
+
+
+
+            </mat-form-field>
+
+
+
+          </div>
+        </form>
+        <div>
+
+          <button mat-raised-button class="top" style="margin-right:12px" (click)="consultaAnual()" color="primary">
+            <mat-icon>search</mat-icon>
+            Buscar
+          </button>
+
+        </div>
+
+
+
+      </div>
+
+
+      <div *ngIf="anual">
+        <app-relatorios-anual [ano]="ano"></app-relatorios-anual>
+      </div>
+      <!-- FIM ANUAL -->
+
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

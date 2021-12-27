@@ -1,0 +1,49 @@
+<mat-drawer-container>
+    <mat-drawer #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches" [ngClass]="{'sidenav-collapsed': collapsedNav && !mobileQuery.matches}">
+        <div class="sidenav-header">
+            <img src="/assets/img/logo.png" width="100px">
+        </div>
+        <mat-nav-list class="dashboard">
+
+            <a routerLinkActive="is-active" [routerLink]="[page.link]" mat-list-item *ngFor="let page of menus" (click)="sendMessageToParent(page.name)">
+                <mat-icon mat-list-icon>{{page?.icon}}</mat-icon>
+                <span matLine *ngIf="!collapsedNav || mobileQuery.matches">{{ page?.name }} </span>
+            </a>
+
+        </mat-nav-list>
+
+    </mat-drawer>
+    <mat-drawer-content [ngClass]="{'sidenav-collapsed': collapsedNav && !mobileQuery.matches}">
+        <mat-toolbar>
+            <!-- <button mat-icon-button (click)="snav.toggle()"> -->
+            <button mat-icon-button (click)="mobileQuery.matches ? snav.toggle() : collapsedNav = !collapsedNav">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+
+            <span class="example-fill-remaining-space"></span>
+
+
+       
+
+            <button [matMenuTriggerFor]="menuUser" class="transparent"> <mat-card style="display: none"></mat-card><img mat-card-avatar style="background-size: cover !important" src="{{foto}}"></button>
+
+            <mat-menu #menuUser="matMenu">
+                <!-- <button mat-menu-item (click)="perfil()"><mat-icon>face</mat-icon>  Minha conta</button> -->
+
+              
+                <button mat-menu-item (click)="logOut()">
+                    <mat-icon>logout</mat-icon> Sair
+                </button>
+            </mat-menu>
+
+        </mat-toolbar>
+        <div class="div-principal" style="height: 100%;">
+            <router-outlet></router-outlet>
+        </div>
+
+
+
+    </mat-drawer-content>
+</mat-drawer-container>
+

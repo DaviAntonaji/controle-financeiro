@@ -1,7 +1,7 @@
 from tokenpass import managertk
 from database.connection import connectionDb
 from calendar import monthrange
-
+import sys
 
 class RecebimentoModel(object):
 
@@ -30,6 +30,7 @@ class RecebimentoModel(object):
             recebimento_id = managertk.decodedPayload(recebimento_id)
 
             cursor.execute("DELETE FROM recebimentos WHERE recebimento_id=%s", (recebimento_id))
+            conexao.commit()
             return {"message": "OK"}
 
         except Exception as e:
@@ -47,7 +48,8 @@ class RecebimentoModel(object):
             recebimento_id = managertk.decodedPayload(recebimento_id)
             user_id = managertk.decodedPayload(user_id)
 
-            cursor.execute("UPDATE recebimentos SET user_id=%s, recebimento_descricao=%s, recebimento_valor=%s, recebimento_data=%s WHERE recebimento_id=%s", (user_id, descricao,valor,data,categoria,recebimento_id))
+            cursor.execute("UPDATE recebimentos SET user_id=%s, recebimento_descricao=%s, recebimento_valor=%s, recebimento_data=%s WHERE recebimento_id=%s", (user_id, descricao,valor,data,recebimento_id))
+            conexao.commit()
             return {"message": "OK"}
 
         except Exception as e:
@@ -63,7 +65,8 @@ class RecebimentoModel(object):
         try:
             user_id = managertk.decodedPayload(user_id)
 
-            cursor.execute("INSERT INTO recebimentos VALUES (NULL,%s, %s, %s, %s, %s)", (user_id, descricao,valor,data))
+            cursor.execute("INSERT INTO recebimentos VALUES (NULL,%s, %s, %s, %s)", (user_id, descricao,valor,data))
+            conexao.commit()
             return {"message": "OK"}
 
         except Exception as e:
@@ -85,11 +88,13 @@ class RecebimentoModel(object):
             sql = "SELECT * FROM recebimentos " + where
 
             cursor.execute(sql)
+            total = 0
             recebimentos = []
             for recebimento in cursor.fetchall():
+                total+= recebimento[3]
                 recebimentos.append(RecebimentoModel(recebimento).json())
 
-            return {"message": "OK", "recebimentos": recebimentos}
+            return {"message": "OK", "recebimentos": recebimentos, "total_recebido": total}
 
         except Exception as e:
 

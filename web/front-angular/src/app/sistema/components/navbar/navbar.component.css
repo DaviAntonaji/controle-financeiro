@@ -1,0 +1,194 @@
+.transparent {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.fixado {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 9999;
+    font-size: 20px;
+}
+
+#notifications {
+    max-width: none;
+    width: 100vw;
+    margin-left: -8px;
+    margin-top: 24px;
+    overflow: visible;
+}
+
+.notification-row {
+    width: 720px;
+}
+
+.mat-list-item {
+    color: black;
+    /* opacity: 0.8; */
+}
+
+.mat-drawer {
+    /* opacity: 0.9; */
+    background: White;
+}
+
+.mat-toolbar {
+    /* opacity: 0.9; */
+    background: #00bdaf;
+    color: white;
+}
+
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+.is-active {
+    color: #00a18e;
+    font-weight: bold!important;
+    /* background-color: #bbbbbb !important; */
+}
+
+.mat-menu-item:hover {
+    /* background-color:grey; */
+    color: #00bdaf;
+}
+
+
+/* .mat-menu-item:hover .mat-icon{
+    color: purple;
+  } */
+
+mat-drawer-container {
+    height: 100%;
+}
+
+mat-drawer,
+mat-drawer-content {
+    transition-duration: 0.4s;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+mat-drawer {
+    width: 200px;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    transition-property: width;
+}
+
+mat-drawer.sidenav-collapsed {
+    width: 70px;
+}
+
+mat-drawer .sidenav-header {
+    background-color: #00bdaf;
+    height: 64px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-drawer .sidenav-header span {
+    font-size: 2em;
+    color: #fff;
+}
+
+mat-drawer ul {
+    padding: 0;
+}
+
+mat-drawer ul li {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    list-style: none;
+    cursor: pointer;
+    margin: 10px;
+    padding: 10px;
+    background-color: #000;
+    border-radius: 5px;
+}
+
+mat-drawer-content {
+    transition-property: transform, margin-left, margin-right;
+}
+
+mat-toolbar {
+    background-color: #00bdaf;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    width: 100% !important;
+}
+
+mat-drawer-content.sidenav-collapsed {
+    margin-left: 70px !important;
+}
+
+mat-card {
+    margin: 10px;
+}
+
+
+/* 
+html, body { 
+  height: 100%; 
+  background: #efefef;
+}
+ */
+
+
+/* active tab 
+ ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+  color:black;
+  background-color: #D8D8D8;
+  } */
+
+ ::ng-deep .mat-ink-bar {
+    background-color: rgb(0, 0, 0, 0) !important;
+}
+
+
+/* ::ng-deep .mat-ink-bar {
+    background-color: green !important;
+    display: none !important;
+    visibility: hidden !important;
+    transition: none !important;
+    height: 0px !important;
+    width: 0px !important;
+  } */
+
+ :host ::ng-deep .mat-tab-label {
+    height: 3rem !important;
+    min-width: 8rem !important;
+}
+
+
+/* Styles for the active tab label */
+
+:host ::ng-deep .mat-tab-label.mat-tab-label-active {
+    border: 1px solid #00bdaf;
+    box-sizing: border-box;
+    border-radius: 0.2rem;
+}
+
+
+/* .div-principal {
+  background-color: #e9e9e9 !important;
+}
+html,
+body {
+    height: 100%;
+    background: #e9e9e9 !important;
+} */
+

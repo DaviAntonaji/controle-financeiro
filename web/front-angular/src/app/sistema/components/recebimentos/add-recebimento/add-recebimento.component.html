@@ -1,0 +1,54 @@
+<div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+
+    <h2 mat-dialog-title>{{dialogTitle}}</h2>
+  
+    <form [formGroup]="formAdd">
+  
+      <div class="text-inside">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Descrição</mat-label>
+          <input matInput type="text" placeholder="Descrição" formControlName="descricao">
+          <mat-error *ngIf="checkError('descricao', 'required')">Campo obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+  
+  
+  
+  
+      <div class="text-inside">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Valor</mat-label>
+          <input matInput type="number" placeholder="Valor" formControlName="valor">
+          <mat-error *ngIf="checkError('valor', 'required')">Campo obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+  
+      <div class="text-inside">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Data do recebimento</mat-label>
+          <input matInput type="date" placeholder="Data do recebimento" formControlName="data">
+          <mat-error *ngIf="checkError('valor', 'required')">Campo obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+  
+  
+  
+  
+  
+  
+  
+  
+      <div mat-dialog-actions style="text-align: right;">
+        <button mat-raised-button color="primary" type="submit" (click)="onSubmit();">{{ dialogButton }}</button>
+  
+        <span class="spacer"></span>
+        <button mat-button (click)="onDismiss()">Cancelar</button>
+      </div>
+  
+  
+  
+    </form>
+  
+  
+  </div>
+  

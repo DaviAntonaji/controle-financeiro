@@ -9,6 +9,7 @@ from resources.start import Start
 from resources.despesas import AtualizaDespesa, Despesas, CategoriasDespesas, CadastraDespesa, DeletaDespesa
 from resources.recebimentos import AtualizaRecebimento, Recebimentos, CadastraRecebimento, DeletaRecebimento
 from resources.users import UserAuth, UserRegister
+from resources.relatorios import RelatorioAnual,RelatorioMensal
 
 import os
 from dotenv import load_dotenv
@@ -69,12 +70,12 @@ api.add_resource(AtualizaDespesa, "/despesas/atualizar/<string:despesa_id>")
 docs.register(AtualizaDespesa)
 api.add_resource(CategoriasDespesas, "/despesas/categorias")
 docs.register(CategoriasDespesas)
-api.add_resource(DeletaDespesa, "/despesa/apagar/<string:despesa_id>/<string:user_id>")
+api.add_resource(DeletaDespesa, "/despesas/apagar/<string:despesa_id>/<string:user_id>")
 docs.register(DeletaDespesa)
 
 
 # Rotas de recebimentos
-api.add_resource(AtualizaRecebimento, "/recebimento/atualizar/<string:recebimento_id>")
+api.add_resource(AtualizaRecebimento, "/recebimentos/atualizar/<string:recebimento_id>")
 docs.register(AtualizaRecebimento)
 api.add_resource(Recebimentos, "/recebimentos/<string:user_id>/<string:mes>/<string:ano>")
 docs.register(Recebimentos)
@@ -83,8 +84,18 @@ docs.register(CadastraRecebimento)
 api.add_resource(DeletaRecebimento, "/recebimentos/apagar/<string:recebimento_id>/<string:user_id>")
 docs.register(DeletaRecebimento)
 
+# Rotas de relatorio
+api.add_resource(RelatorioAnual, "/relatorios/anual/<string:user_id>/<string:ano>")
+docs.register(RelatorioAnual)
+
+api.add_resource(RelatorioMensal, "/relatorios/mensal/<string:user_id>/<string:ano>/<string:mes>")
+docs.register(RelatorioMensal)
+
 # Main Function
 if __name__ == '__main__':
     print("API PYTHON INICIADA")
     # sendSlackBot(":white_check_mark: API iniciada com sucesso!")
     app.run(host='0.0.0.0', port=5001, debug=True)
+
+
+

@@ -1,0 +1,50 @@
+<div fxLayout="column" fxFlexFill>
+  <div fxLayout="column" fxLayoutAlign="center center" fxFlex="90">
+    
+    <div class="rcorners2">
+      <form [formGroup]="loginForm">
+        <h1 style="text-align: center;">Controle financeiro</h1>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Email" style="color: black;">
+
+          <mat-error *ngIf="checkError('email', 'email')">
+            Por favor entre com um endereço de e-mail válido
+          </mat-error>
+          <mat-error *ngIf="checkError('email', 'required')">
+            O e-mail é um campo <strong>obrigatório</strong>
+          </mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input type="password" formControlName="password" matInput placeholder="Senha" style="color: black;">
+          <mat-error *ngIf="checkError('password', 'minlength')">
+            A senha deve conter minimo de 6 digitos
+          </mat-error>
+          <mat-error *ngIf="checkError('password', 'required')">
+            A senha é um campo <strong>obrigatório</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- <ngx-recaptcha2 #captchaElem style="width:100%" [siteKey]="siteKey" formControlName="recaptcha">
+        </ngx-recaptcha2> 
+        <mat-error *ngIf="checkError('recaptcha', 'required')">
+          Confirme que você não é um robô.
+        </mat-error> -->
+
+        <button style="width: 100%; margin-top: 20px; height: 45px;" mat-flat-button color="primary"
+          (click)="onSubmit()">Entrar</button>
+      </form>
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+</div>

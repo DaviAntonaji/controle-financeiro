@@ -1,0 +1,53 @@
+<mat-card>
+<h3 style="text-align: center">Relatório do mês de {{mesNome}} de {{ano}}</h3>
+
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
+  <div fxFill fxFlex.md="30" fxFlex.lg="30" fxFlex.xl="30">
+    <mat-card style="width: 98%; border: 1px solid #33b73e; margin: 5px;" class="mat-elevation-z0">
+      <mat-card-header class="card3">
+
+        <mat-card-title> Valor que já foi recebido</mat-card-title>
+
+      </mat-card-header>
+      <mat-card-content>
+        <h1 style="text-align:center;">{{totalRecebido}}</h1>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFill fxFlex.md="30" fxFlex.lg="30" fxFlex.xl="30">
+    <mat-card style="width: 98%; border: 1px solid #b73333; margin: 5px" class="mat-elevation-z0">
+      <mat-card-header class="card2">
+
+        <mat-card-title> Valor gasto em Despesas </mat-card-title>
+
+      </mat-card-header>
+      <mat-card-content>
+        <h1 style="text-align:center;">{{totalDespesas}}</h1>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFill fxFlex.md="30" fxFlex.lg="30" fxFlex.xl="30">
+    <mat-card style="width: 98%; border: 1px solid #00a4fb; margin: 5px" class="mat-elevation-z0">
+      <mat-card-header class="card1">
+
+        <mat-card-title> Valor restante (lucro) </mat-card-title>
+
+      </mat-card-header>
+      <mat-card-content>
+        <h1 style="text-align:center;">{{lucro}}</h1>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>
+<div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="data != []">
+  <div fxFlex="90" style="text-align:center;">
+    <div (window:resize)="resetWindowSize($event)">
+      <h2 style="text-align:center;">Com o que mais foi gasto?</h2>
+
+      <google-chart [type]="type" [data]="data" [columns]="columnNames" [options]="options"></google-chart>
+    </div>
+  </div>
+</div>
+
+</mat-card>

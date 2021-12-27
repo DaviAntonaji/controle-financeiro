@@ -33,6 +33,7 @@ class DespesaModel(object):
             despesa_id = managertk.decodedPayload(despesa_id)
 
             cursor.execute("DELETE FROM despesas WHERE despesa_id=%s", (despesa_id))
+            conexao.commit()
             return {"message": "OK"}
 
         except Exception as e:
@@ -51,6 +52,7 @@ class DespesaModel(object):
             user_id = managertk.decodedPayload(user_id)
             categoria = managertk.decodedPayload(categoria)
             cursor.execute("UPDATE despesas SET user_id=%s, despesa_descricao=%s, despesa_valor=%s, despesa_data=%s, despesa_categoria_id=%s WHERE despesa_id=%s", (user_id, descricao,valor,data,categoria,despesa_id))
+            conexao.commit()
             return {"message": "OK"}
 
         except Exception as e:
@@ -67,6 +69,7 @@ class DespesaModel(object):
             user_id = managertk.decodedPayload(user_id)
             categoria = managertk.decodedPayload(categoria)
             cursor.execute("INSERT INTO despesas VALUES (NULL,%s, %s, %s, %s, %s)", (user_id, descricao,valor,data,categoria))
+            conexao.commit()
             return {"message": "OK"}
 
         except Exception as e:
@@ -86,13 +89,16 @@ class DespesaModel(object):
         try:
             where = f"WHERE user_id = {managertk.decodedPayload(user_id)} AND despesa_data >= '{ano}-{mes}-01 00:00:00' AND despesa_data <= '{ano}-{mes}-{num_days} 23:59:59'"
             sql = "SELECT * FROM despesas INNER JOIN despesa_categoria ON despesas.despesa_categoria_id = despesa_categoria.despesa_categoria_id " + where
+            print(sql)
 
             cursor.execute(sql)
             despesas = []
+            total = 0
             for despesa in cursor.fetchall():
+                total += despesa[3]
                 despesas.append(DespesaModel(despesa).json())
 
-            return {"message": "OK", "despesas": despesas}
+            return {"message": "OK", "despesas": despesas, "total_gasto": total}
 
         except Exception as e:
 
@@ -108,7 +114,7 @@ class DespesaModel(object):
         cursor = conexao.cursor()
         try:
 
-            cursor.execute("SELECT * FROM despesa_categoria")
+            cursor.execute("SELECT * FROM despesa_categoria ORDER BY despesa_categoria_nome ASC")
             categorias = []
             for categoria in cursor.fetchall():
                 categorias.append({"despesa_categoria_id": managertk.encodedPayload(

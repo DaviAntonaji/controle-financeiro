@@ -1,0 +1,75 @@
+<div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+
+  <h2 mat-dialog-title>{{dialogTitle}}</h2>
+
+  <form [formGroup]="formAdd">
+
+    <div class="text-inside">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <input matInput type="text" placeholder="Descrição" formControlName="descricao">
+        <mat-error *ngIf="checkError('descricao', 'required')">Campo obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+
+
+
+    <div class="text-inside">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Valor</mat-label>
+        <input matInput type="number" placeholder="Valor" formControlName="valor">
+        <mat-error *ngIf="checkError('valor', 'required')">Campo obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="text-inside">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Data da despesa</mat-label>
+        <input matInput type="date" placeholder="Data da despesa" formControlName="data">
+        <mat-error *ngIf="checkError('valor', 'required')">Campo obrigatório</mat-error>
+      </mat-form-field>
+    </div>
+
+
+
+
+
+    <div class="text-inside">
+      <mat-form-field class="example-full-width" appearance="outline">
+
+        <mat-label>Categoria</mat-label>
+
+        <mat-select formControlName="categoria" #select1>
+
+
+          <mat-select-filter [placeholder]="'Filtrar'" [noResultsMessage]="'Sem resultado'" [array]="categorias"
+            [displayMember]="'despesa_categoria_nome'" (filteredReturn)="filteredCategoria=$event"
+            *ngIf="select1.focused"></mat-select-filter>
+          <mat-option *ngFor="let categoria of filteredCategoria" [value]="categoria.despesa_categoria_id">
+            {{categoria.despesa_categoria_nome}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="checkError('categoria', 'required')">
+          Campo obrigatório
+        </mat-error>
+
+      </mat-form-field>
+    </div>
+
+
+
+
+    <div mat-dialog-actions style="text-align: right;">
+      <button mat-raised-button color="primary" type="submit" (click)="onSubmit();">{{ dialogButton }}</button>
+
+      <span class="spacer"></span>
+      <button mat-button (click)="onDismiss()">Cancelar</button>
+    </div>
+
+
+
+  </form>
+
+
+</div>

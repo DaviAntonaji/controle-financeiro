@@ -1,0 +1,155 @@
+<div style="padding:2%;">
+    <h1>Recebimentos</h1>
+    <!-- FORMULARIO PESQUISA -->
+  
+  
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-start center" fxLayout.xs="column">
+  
+      <form [formGroup]="formBusca" style="text-align:center;">
+        <div>
+  
+          <mat-form-field class="example-full-width" appearance="outline" style="margin-right:12px">
+            <mat-label>Mês</mat-label>
+  
+  
+            <mat-select formControlName="mes" required [(value)]="mesAtual">
+              <mat-option *ngFor="let mes of meses" [value]="mes.numero">
+                {{mes.nome}}
+              </mat-option>
+            </mat-select>
+  
+          </mat-form-field>
+  
+          <mat-form-field class="example-full-width" appearance="outline" style="margin-right:12px">
+            <mat-label>Ano</mat-label>
+            <mat-select formControlName="ano" required [(value)]="anoAtual">
+              <mat-option *ngFor="let ano of anosPossiveis" [value]="ano">
+                {{ano}}
+              </mat-option>
+            </mat-select>
+  
+  
+  
+  
+          </mat-form-field>
+  
+  
+  
+        </div>
+      </form>
+      <div>
+  
+        <button mat-raised-button class="top" style="margin-right:12px" (click)="consultaRecebimentos()" color="primary">
+          <mat-icon>search</mat-icon>
+          Buscar
+        </button>
+        <button mat-raised-button class="top" style="margin-right:12px" (click)="cadastrar()" color="primary">
+          <mat-icon>add</mat-icon>
+          Cadastrar
+        </button>
+      </div>
+  
+  
+  
+    </div>
+  
+  
+  
+  
+  
+  
+    <!-- FIM FORMULARIO PESQUISA -->
+  
+    <div *ngIf="recebimentos.length > 0 ">
+      <mat-card style="margin-top: 10px;" [ngClass]="{'esconde': showOverlay}">
+  
+  
+        <mat-card-header>
+          <mat-card-title>
+            <div style="margin-bottom:2.5px;"></div>
+          </mat-card-title>
+          <!-- <mat-card-subtitle>Subtitle</mat-card-subtitle> -->
+        </mat-card-header>
+        <mat-card-content>
+  
+          <div style="display: flex; justify-content: space-between;">
+  
+            <mat-form-field appearance="outline">
+              <mat-label>Pesquisar</mat-label>
+              <input matInput placeholder="Pesquisar" (keyup)="applyFilter($any($event.target).value)" #input>
+            </mat-form-field>
+  
+          </div>
+  
+          <div class="example-container mat-elevation-z0">
+  
+            <table mat-table [dataSource]="dataSource">
+  
+  
+              <ng-container matColumnDef="descricao">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let element"> {{element.recebimento_descricao}} </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="valor">
+                <th mat-header-cell *matHeaderCellDef> Valor </th>
+                <td mat-cell *matCellDef="let element"> {{element.recebimento_valor | currency:'BRL':true}} </td>
+              </ng-container>
+  
+             
+              <ng-container matColumnDef="data">
+                <th mat-header-cell *matHeaderCellDef> Data </th>
+                <td mat-cell *matCellDef="let element"> {{element.recebimento_data | date: 'dd/MM/yyyy'}} </td>
+              </ng-container>
+  
+              <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef> Ações </th>
+                <td mat-cell *matCellDef="let element">
+  
+                  <button mat-button [matMenuTriggerFor]="menu" [matMenuTriggerData]="{data: element}">
+                    <mat-icon style="cursor: pointer;">more_vert</mat-icon>
+                  </button>
+  
+  
+                </td>
+              </ng-container>
+  
+  
+  
+  
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+              </tr>
+            </table>
+  
+            <mat-menu #menu="matMenu">
+              <ng-template matMenuContent let-data="data">
+                <button mat-menu-item (click)="edit(data)">
+                  <mat-icon>edit</mat-icon>
+                  Editar
+                </button>
+                <button mat-menu-item (click)="delete(data)">
+                  <mat-icon>delete</mat-icon>
+                  Apagar
+                </button>
+              </ng-template>
+            </mat-menu>
+  
+  
+  
+  
+          </div>
+  
+          <mat-paginator [pageSize]="25" showFirstLastButtons [pageSizeOptions]="[10, 25, 50, 100, 200]"></mat-paginator>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="recebimentos.length == 0 && showOverlay == false" class="example-container3 mat-elevation-z0 icon-text"
+      style="margin:35px;">
+      <mat-icon style="margin-right: 5px; color: red;">cancel</mat-icon>
+      Não há nenhumrecebimento cadastrado este mês
+    </div>
+  
+  
+  </div>
+  

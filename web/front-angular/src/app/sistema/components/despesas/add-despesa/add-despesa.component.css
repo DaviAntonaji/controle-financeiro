@@ -1,0 +1,16 @@
+.example-full-width {
+    width: 100%;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+    margin-bottom: 5px;
+}
+
+.button-class {
+    margin: 0px 8px;
+}
+
+.mat-option.hide {
+    display: none;
+  }

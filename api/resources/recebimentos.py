@@ -25,7 +25,7 @@ class CadastraRecebimento(MethodResource, Resource):
     def post(self, **kargs):
 
         user_id = kargs.get("user_id")
-        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user_id"]:
+        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user"]["user_id"]:
             return {"message": "Usuários divergentes"},400
 
         cadastro = RecebimentoModel.cadastraRecebimento(**kargs)
@@ -54,7 +54,7 @@ class AtualizaRecebimento(MethodResource, Resource):
     @jwt_required
     def put(self, recebimento_id, **kargs):
         user_id = kargs.get("user_id")
-        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user_id"]:
+        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user"]["user_id"]:
             return {"message": "Usuários divergentes"},400
         cadastro = RecebimentoModel.atuatualizaRecebimento(recebimento_id=recebimento_id,**kargs)
 
@@ -83,7 +83,7 @@ class Recebimentos(MethodResource, Resource):
     @jwt_required
     def get(self, user_id, mes, ano):
 
-        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user_id"]:
+        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user"]["user_id"]:
             return {"message": "Usuários divergentes"},400
         recebimentos = RecebimentoModel.consultaRecebimentosMes(user_id, mes, ano)
 
@@ -112,7 +112,7 @@ class DeletaRecebimento(MethodResource, Resource):
     })
     @jwt_required
     def delete(self, user_id, recebimento_id):
-        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user_id"]:
+        if user_id != json.loads(managertk.decodedPayload(get_jwt_identity()))["user"]["user_id"]:
             return {"message": "Usuários divergentes"},400
         recebimentos = RecebimentoModel.deletaRecebimento(recebimento_id)
 
